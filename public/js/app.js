@@ -7,6 +7,14 @@ myApp.run(['$anchorScroll', function($anchorScroll) {
     $anchorScroll.yOffset = 50;   // always scroll minus 50 extra pixels
 }]);
 
+myApp.run(['$rootScope', function($rootScope){
+    $rootScope.$on('$stateChangeError',
+        function(event, toState, toParams, fromState, fromParams, error){
+            console.log("stateChangeError : ", event, "from state", fromState, "to state : ", toState);
+            console.log('error : ', error);
+        })
+}]);
+
 myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
     var prefix = '';

@@ -5,20 +5,20 @@
     <title>Léo le bg</title>
 
     <!-- env:dev -->
-    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap-theme.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/css/cv.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/bower_components/flag-icon-css/css/flag-icon.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" media="all">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/cv.css" media="all">
+    <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css" media="all">
 
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
 
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="/bower_components/angular-translate/angular-translate.min.js"></script>
-    <script src="/bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
-    <script src="/bower_components/angular-scroll/angular-scroll.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
+    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- env:dev:end -->
 
     <!-- env:prod -->
@@ -43,14 +43,19 @@
 </div>
 
 <!-- env:dev -->
-<script src="/js/app.js"></script>
-<script src="/js/header-ctrl.js"></script>
-<script src="/js/translations.js"></script>
-<script src="/js/education-ctrl.js"></script>
-<script src="/js/work-ctrl.js"></script>
-<script src="/js/skill-ctrl.js"></script>
-<script src="/js/cv-ctrl.js"></script>
-<script src="/js/admin-ctrl.js"></script>
+<script src="js/app.js"></script>
+
+<script src="js/service/auth-service.js"></script>
+<script src="js/service/i18n-service.js"></script>
+
+<script src="js/controller/header-ctrl.js"></script>
+<script src="js/controller/education-ctrl.js"></script>
+<script src="js/controller/work-ctrl.js"></script>
+<script src="js/controller/skill-ctrl.js"></script>
+<script src="js/controller/cv-ctrl.js"></script>
+<script src="js/controller/admin-ctrl.js"></script>
+
+
 <!-- env:dev:end -->
 
 <!-- env:prod -->

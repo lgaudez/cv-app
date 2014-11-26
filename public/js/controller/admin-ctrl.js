@@ -1,10 +1,8 @@
 angular.module('cvApp').controller('AdminCtrl',
-    ['$scope', '$http', function($scope, $http) {
+    ['$scope', '$http', 'AuthService', function($scope, $http, AuthService) {
 
         $scope.authMe = function(){
-            $http.post("/rest/auth", {login : 'leo', password : 'leo'}).success(function(data){
-              console.log(data);
-            })
+            AuthService.login($scope.credential);
         };
 
         $scope.translations = {};
@@ -30,21 +28,5 @@ angular.module('cvApp').controller('AdminCtrl',
             $http.post("http://localhost:3000/translations",
                 {key : $scope.translation.key, locale : 'fr', val : $scope.translation.fr.val});
         };
-
-        $scope.test = function(){
-
-//            var req = {
-//                method: 'POST',
-//                url: "http://localhost:3000/auth",
-//                headers: {
-//                    'Content-Type': undefined
-//                },
-//                data: { test: 'test' },
-//            }
-
-            $http.post("http://localhost:3000/auth", {withCredentials: true , login : 'leo', password: 'leo'}).success(function(data){
-                console.log(data);
-            })
-        }
 
     }]);

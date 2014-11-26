@@ -61,7 +61,7 @@ router.use(function(req, res, next) {
 // production error handler
 // no stacktraces leaked to user
 router.use(function(err, req, res, next) {
-    console.log("err 500", err)
+    console.log("err 500", err);
     res.status(err.status || 500);
     res.json("err");
     next();
@@ -73,9 +73,11 @@ router.use(function(err, req, res, next){
     next();
 });
 
-router.route('/rest/translations').get(function(req, response){
-    console.log(req.cookie);
-});
+//router.route('/rest/translations').get(function(req, response){
+//    //TODO check security
+//    console.log(req.cookie);
+//    response.json({})
+//});
 
 router.route('/rest/auth').post(function(req, response) {
     console.log('/rest/auth', req.body);
@@ -85,19 +87,18 @@ router.route('/rest/auth').post(function(req, response) {
         console.log("found user", err ,result);
 
         if(err) {
-            console.log("no token for him")
             res.status(400);
         }
 
         if (result) {
-            console.log("we have a result", result)
+//            console.log("we have a result", result)
             // si on a un résultat
 
             if (credential.password == result.password) {
                 // password match
                 authService.upsertAfterSuccess(credential.login, function(token){
                     console.log("add cookie", token);
-                    response.cookie('cv-token', token._id, {maxAge: 900000});
+                    response.cookie('cv-token', token._id, {maxAge: 9000000});
                     response.json(true);
                 });
             }
