@@ -1,0 +1,21 @@
+<div class="education">
+
+    <div class="container">
+        <h1 class="text-center text-uppercase">{{ 'education.title' | translate}}</h1>
+        <div class="row wrapped-50 educationDetails" ng-repeat="education in educations">
+            <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                <div class="workYear">
+                    {{education.start | translate}} <span ng-if="!$last"> - {{education.end | translate}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 rightArea">
+                <div class="arrowpart"></div>
+                <div class="exCon">
+                    <h4><i class="fa fa-university"/> {{education.institute | translate}} </h4>
+                    <h5>{{education.title | translate}} </h5>
+                    <!--<h5>{{education.desc | translate}}</h5>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="me">
+    <div class="container">
+        <h1 class="text-center text-uppercase">{{ 'me.title' | translate}}</h1>
+        <div class="row wrapped-50">
+            <div class="col-sm-2">
+                <img src="/img/lg.jpeg" class="img-circle"/>
+            </div>
+            <div class="col-sm-5">
+                <p><i class="fa fa-user"></i> Léo Gaudez</p>
+                <p>{{'me.born_on' | translate}} {{ '2014-04-05' | date:'longDate'}}</p>
+                <p><span class="flag-icon flag-icon-fr"/> {{'me.nationality' | translate}}</p>
+                <p><i class="fa fa-map-marker"></i> Paris 75011</p>
+                <p><i class="fa fa-phone"></i> {{'me.phone' | translate}}</p>
+                <p><i class="fa fa-envelope"></i> leo.gaudez@gmail.com</p>
+            </div>
+            <div class="col-sm-5 noMarginTop">
+                <h4>{{'me.job' | translate}}</h4>
+                <p>{{'me.desc' | translate}}</p>
+            </div>
+        </div>
+    </div>
+</div>

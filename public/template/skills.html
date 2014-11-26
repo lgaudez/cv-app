@@ -1,0 +1,83 @@
+<div class="skills">
+    <div class="container">
+
+        <h1>{{'skill.title' | translate}}</h1>
+
+        <div class="row" >
+            <div class="col-md-6">
+                <h2>{{'skill.bdd' | translate}}</h2>
+
+                <div class="row" ng-repeat="skill in skillsBdd">
+                    <div class="col-md-3">
+                        <div class="plus_container">
+                            <i class="fa fa-plus-circle"></i> {{skill.title | translate}}
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="bar_container">
+                            <div class="bar" ng-style="{'width' : skill.percent + '%' }"><span class="bar_padding">{{skill.percent + '%'}} </span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>{{'skill.frontend' | translate}}</h2>
+
+                <div class="row" ng-repeat="skill in skillsFront">
+                    <div class="col-md-3">
+                        <div class="plus_container">
+                            <i class="fa fa-plus-circle"></i> {{skill.title | translate}}
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="bar_container">
+                                    <div class="bar" ng-style="{'width' : skill.percent + '%' }"><span class="bar_padding">{{skill.percent + '%'}} </span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{skill.desc | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>{{'skill.backend' | translate}}</h2>
+
+                <div class="row" ng-repeat="skill in skillsBack">
+                    <div class="col-md-3">
+                        <div class="plus_container">
+                            <i class="fa fa-plus-circle"></i> {{skill.title | translate}}
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="bar_container">
+                                    <div class="bar" ng-style="{'width' : skill.percent + '%' }"><span class="bar_padding">{{skill.percent + '%'}} </span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{skill.desc | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+

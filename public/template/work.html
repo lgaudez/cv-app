@@ -1,0 +1,20 @@
+<div class="work">
+    <div class="container">
+        <h1 class="text-center text-uppercase">{{ 'work.title' | translate}}</h1>
+        <div class="row wrapped-50 workDetails" ng-repeat="work in works">
+            <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                <div class="workYear">
+                    {{work.start | translate}} <span ng-if="!$last"> - {{work.end | translate}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 rightArea">
+                <div class="arrowpart"></div>
+                <div class="exCon">
+                    <h3><i class="fa fa-bug"/> <em>{{work.company | translate}}</em> </h3>
+                    <h4>{{work.title | translate}} </h4>
+                    <h5>{{work.desc | translate}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
