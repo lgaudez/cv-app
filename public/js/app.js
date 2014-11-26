@@ -1,7 +1,7 @@
 /**
  * Created by leo on 08/11/2014.
  */
-var myApp = angular.module('cvApp', ['ui.router', 'pascalprecht.translate', 'tmh.dynamicLocale', 'duScroll']);
+var myApp = angular.module('cvApp', ['ui.router', 'pascalprecht.translate', 'tmh.dynamicLocale', 'duScroll', 'ngCookies']);
 
 myApp.run(['$anchorScroll', function($anchorScroll) {
     $anchorScroll.yOffset = 50;   // always scroll minus 50 extra pixels
