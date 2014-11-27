@@ -2,6 +2,7 @@ angular.module('cvApp').controller('AdminCtrl',
     ['$scope', '$http', 'AuthService', function($scope, $http, AuthService) {
 
         $scope.authMe = function(){
+            console.log($scope.credential)
             AuthService.login($scope.credential);
         };
 

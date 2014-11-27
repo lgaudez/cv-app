@@ -3,7 +3,6 @@ var _userRepo, _tokenRepo;
 var service = {};
 
 service.initialize = function(config){
-//    console.log("AuthService initialize");
     _userRepo = config.userRepo;
     _tokenRepo = config.tokenRepo;
 };
@@ -13,7 +12,6 @@ service.upsertAfterSuccess = function(login, callback){
     _tokenRepo.findOne({login : login}, function(err, result){
         if(result != null){
             //TODO incrase max age cookie
-            console.log("found token", result);
             callback(result);
         } else {
             var token = generateToken(login);

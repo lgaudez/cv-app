@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 //app.use('/', routes);
 
@@ -86,18 +86,18 @@ router.route('/rest/auth').post(function(req, response) {
     _userRepo.findOne({login: credential.login}, function (err, result) {
         console.log("found user", err ,result);
 
-        if(err) {
-            res.status(400);
+        if(err || result == null) {
+            response.status(400);
+            response.json("error");
         }
 
         if (result) {
-//            console.log("we have a result", result)
             // si on a un résultat
 
             if (credential.password == result.password) {
                 // password match
                 authService.upsertAfterSuccess(credential.login, function(token){
-                    console.log("add cookie", token);
+                    console.log("add cookie", token.id);
                     response.cookie('cv-token', token._id, {maxAge: 9000000});
                     response.json(true);
                 });
