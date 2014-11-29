@@ -73,11 +73,30 @@ router.use(function(err, req, res, next){
     next();
 });
 
-//router.route('/rest/translations').get(function(req, response){
-//    //TODO check security
-//    console.log(req.cookie);
+// Translations
+
+var _translationRepo = db.collection('translation');
+
+router.route('/rest/translations').get(function(req, response){
+    var localeAsked = req.param("locale");
+
+    var i18nResponse = {};
+    //TODO check security
+    _translationRepo.find({locale: localeAsked}).toArray(function(err, result) {
+
+        if(result!= null && result.length > 0){
+
+            for(var i = 0; i< result.length; i++){
+                var translation = result[i];
+                var objectName = translation.key;
+                i18nResponse[objectName] = translation.value;
+            }
+        }
+
+        response.json(i18nResponse);
+    });
 //    response.json({})
-//});
+});
 
 router.route('/rest/auth').post(function(req, response) {
     console.log('/rest/auth', req.body);
