@@ -11,7 +11,7 @@ angular.module('cvApp')
 
     .run(['tmhDynamicLocale', function(tmhDynamicLocale){
         //Set detfault locale to french
-        tmhDynamicLocale.set("fr_fr");
+        tmhDynamicLocale.set("fr-fr");
     }])
 
     .config(['tmhDynamicLocaleProvider', function(tmhDynamicLocaleProvider) {
@@ -20,5 +20,5 @@ angular.module('cvApp')
 
     .config(['$translateProvider' , function($translateProvider) {
         $translateProvider.useUrlLoader('rest/translations');
-        $translateProvider.preferredLanguage('fr_fr');
+        $translateProvider.preferredLanguage('fr-fr');
     }]);

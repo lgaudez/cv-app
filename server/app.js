@@ -30,14 +30,56 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 var authService = require('./service/auth-service');
 
-// Auth ----------------------------------------------------------
+// REPO
 
 var _userRepo = db.collection('user');
 var _tokenRepo = db.collection('token');
+var _translationRepo = db.collection('translation');
 
 //Service declaration
+// Auth ----------------------------------------------------------
 
 authService.initialize({userRepo : _userRepo, tokenRepo: _tokenRepo});
+
+// init Translation Service
+fs = require('fs');
+
+function readI18nFile(path, locale){
+    console.log(locale);
+    fs.readFile(path, function (err,data) {
+        if (err) {
+            return console.log(err);
+        }
+        var object = JSON.parse(data);
+//        console.log(object)
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+//                console.log(object[key]);
+                var objectTransformed = {locale : locale, key: key, value: object[key]};
+                //insert in database
+
+                _translationRepo.update({key : key, locale: locale}, objectTransformed, {upsert : true}, function(err, result) {
+
+//                    console.log("callback update locale *//");
+                });
+
+//            alert(key + " -> " + object[key]);
+            }
+        }
+    });
+}
+
+var locales = ['fr-fr', 'en-en'];
+
+function updateI18nCollection(){
+    for(var i = 0; i <locales.length; i++){
+        readI18nFile('server\\i18n\\i18n_'+locales[i] + '.json', locales[i]);
+    }
+}
+
+updateI18nCollection();
+
+
 
 // Controller
 
@@ -75,27 +117,26 @@ router.use(function(err, req, res, next){
 
 // Translations
 
-var _translationRepo = db.collection('translation');
-
 router.route('/rest/translations').get(function(req, response){
     var localeAsked = req.param("locale");
-
     var i18nResponse = {};
-    //TODO check security
-    _translationRepo.find({locale: localeAsked}).toArray(function(err, result) {
+
+    _translationRepo.find({lang: localeAsked}).toArray(function(err, result) {
 
         if(result!= null && result.length > 0){
-
             for(var i = 0; i< result.length; i++){
                 var translation = result[i];
                 var objectName = translation.key;
                 i18nResponse[objectName] = translation.value;
             }
         }
+        else{
+            response.status(400);
+        }
 
         response.json(i18nResponse);
     });
-//    response.json({})
+
 });
 
 router.route('/rest/auth').post(function(req, response) {
