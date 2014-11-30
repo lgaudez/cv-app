@@ -63,13 +63,12 @@ function readI18nFile(path, locale){
 //                    console.log("callback update locale *//");
                 });
 
-//            alert(key + " -> " + object[key]);
             }
         }
     });
 }
 
-var locales = ['fr-fr', 'en-en'];
+var locales = ['fr-fr', 'en-gb'];
 
 function updateI18nCollection(){
     for(var i = 0; i <locales.length; i++){
@@ -118,10 +117,10 @@ router.use(function(err, req, res, next){
 // Translations
 
 router.route('/rest/translations').get(function(req, response){
-    var localeAsked = req.param("locale");
+    var localeAsked = req.param("lang");
     var i18nResponse = {};
 
-    _translationRepo.find({lang: localeAsked}).toArray(function(err, result) {
+    _translationRepo.find({locale: localeAsked}).toArray(function(err, result) {
 
         if(result!= null && result.length > 0){
             for(var i = 0; i< result.length; i++){
@@ -137,6 +136,12 @@ router.route('/rest/translations').get(function(req, response){
         response.json(i18nResponse);
     });
 
+}).post(function(req, response){
+    var translation = req.body;
+    _translationRepo.update({key : translation.key, locale: translation.locale}, translation, {upsert : true}, function(err, result) {
+        //TODO update in file ou regenérer le fichier à partir de la db
+        response.json();
+    });
 });
 
 router.route('/rest/auth').post(function(req, response) {
