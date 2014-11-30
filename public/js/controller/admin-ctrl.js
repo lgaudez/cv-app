@@ -1,6 +1,32 @@
 angular.module('cvApp').controller('AdminCtrl',
     ['$scope', '$http', 'AuthService', function($scope, $http, AuthService) {
 
+        function i18nHasTranslationFor(i18n, locale){
+//            console.log(i18n)
+            for(var i = 0; i < i18n.translations.length; i++){
+                console.log(i, i18n.translations[i].locale);
+//                console.log("i8n.translations[i]", i18n, i18n.translations[i]);
+//                console.log("test", i18n.translations[i].locale == locale, "i18n.translations[i].locale", i18n.translations[i].locale , "locale", locale)
+//                console.log("test", i18n.translations[i].key ,i18n.key, i18n.translations[i].key == i18n.key )
+                if(i18n.translations[i].locale == locale) {
+//                    console.log("true", locale,i18n.translations[i].locale)
+                    return true;
+                }
+            }
+//            console.log("return false");
+            return false;
+        }
+
+//        $scope.noTranslationFor = function(i18n, locale){
+//            console.log("notTranslationFor", i18n, locale);
+//            for(var i = 0; i< i18n.translations.length; i++){
+////                console.log("test", i18n.translations[i].locale , locale, i18n.translations[i].locale == locale)
+//                console.log("test", i18n.translations[i].key ,i18n.key, i18n.translations[i].key == i18n.key )
+//                if(i18n.translations[i].locale == locale) return true;
+//            }
+//            return false;
+//        };
+
         $scope.authMe = function(){
             console.log($scope.credential)
             AuthService.login($scope.credential);
@@ -23,6 +49,7 @@ angular.module('cvApp').controller('AdminCtrl',
             return -1;
         }
 
+
         retrieveTranslationsWithLocale("fr-fr", function(translations){
 
             //first locale translation
@@ -35,6 +62,8 @@ angular.module('cvApp').controller('AdminCtrl',
                 }
             }
 
+            //todo refacto les langues en constant
+
             // second locale
             retrieveTranslationsWithLocale("en-gb", function(translations){
                 for (var key in translations) {
@@ -42,16 +71,21 @@ angular.module('cvApp').controller('AdminCtrl',
                         var iKey = _indexOf($scope.translations, key);
                         // key does not exist
                         if(iKey <= -1) {
-                            var i18n = {key: key, translations:[{locale : 'fr-fr', value:  translations[key]}]};
+                            var i18n = {key: key, translations:[{locale : 'en-gb', value:  translations[key]}]};
                             i18n.translations.push(i18n);
                         }
                         else{
                             //Key exist
-                            console.log("key exist", $scope.translations[iKey]);
-                            $scope.translations[iKey].translations.push({locale : 'fr-fr', value:  translations[key]});
+//                            console.log("key exist", $scope.translations[iKey]);
+                            $scope.translations[iKey].translations.push({locale : 'en-gb', value:  translations[key]});
                         }
                     }
                 }
+                //set property for view
+                for(var i = 0; i< $scope.translations.length; i++){
+                    $scope.translations[i].isMissingImportantTranslation = !i18nHasTranslationFor($scope.translations[i], 'en-gb')
+                }
+
             });
         });
 
