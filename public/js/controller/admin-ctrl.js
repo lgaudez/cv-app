@@ -83,11 +83,14 @@ angular.module('cvApp').controller('AdminCtrl',
             // iterate over i18n.translations, and post key, value, locale
             for(var i = 0; i< i18n.translations.length; i++){
                 var translation = i18n.translations[i];
-//                console.log(translation);
-                $http.post("http://localhost:3000/rest/translations/" + i18n.key, translation);
+                $http.post("http://localhost:3000/rest/translations",  {key: i18n.key, locale: translation.locale, value : translation.value});
             }
 
 
+        };
+
+        $scope.addEnTanslation= function(i18n){
+            i18n.translations.push({locale: 'en-gb', value:""});
         };
 
 //        $scope.addTranslation = function(){

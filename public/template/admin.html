@@ -36,12 +36,8 @@
 
             <!--button addTranslation-->
             <div ng-if="i18n.isMissingImportantTranslation"><!-- -->
-                <div class="col-md-1">
-                    <button ng-show="!openNewTranslation" type="button" class="btn btn-warning" ng-click="openNewTranslation = true;">Rajouter</button>
-                    <button ng-if="openNewTranslation" type="button" class="btn btn-warning" ng-click="addTranslation(i18n, tmpEnTranslation)">Rajouter</button>
-                </div>
-                <div class="col-md-2">
-                    <textarea  ng-if="openNewTranslation" class="form-control" ng-model="tmpEnTranslation"></textarea>
+                <div class="col-md-3">
+                    <button ng-show="!openNewTranslation" type="button" class="btn btn-warning" ng-click="openNewTranslation = true;addEnTanslation(i18n)">Rajouter</button>
                 </div>
             </div>
 
@@ -51,60 +47,5 @@
 
         </div>
 
-        <!--<form name="TranslationForm" ng-submit="addTranslation()">-->
-        <!--<div class="form-inline">-->
-        <!--<div class="form-group">-->
-        <!--<label class="control-label">-->
-        <!--Key-->
-        <!--</label>-->
-        <!--<input type="text" ng-model="translation.key" class="form-control" required/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="form-inline">-->
-        <!--<div class="form-group">-->
-        <!--<label class="control-label">-->
-        <!--Anglais-->
-        <!--</label>-->
-        <!--<input type="text" ng-model="translation.en.value" class="form-control" required/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="form-inline">-->
-        <!--<div class="form-group">-->
-        <!--<label class="control-label">-->
-        <!--Français-->
-        <!--</label>-->
-        <!--<input type="text" ng-model="translation.fr.value" class="form-control" required/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="form-inline">-->
-        <!--<div class="form-group">-->
-        <!--<button type="submit" class="btn btn-primary"> Ajouter </button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</form>-->
-
-
-        <!--<div class="row">-->
-        <!--<div class="col-md-2">-->
-        <!--<strong>Key</strong>-->
-        <!--</div>-->
-        <!--<div class="col-md-2">-->
-        <!--<strong>Val</strong>-->
-        <!--</div>-->
-        <!--</div>-->
-        <div class="row" ng-repeat="translation in translations.fr">
-
-            <form class="form-inline" ng-submit="updateTranslation(translation)">
-                <div class="form-group">
-                    <div class="form-control-static">{{translation.key}}</div>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" ng-model="translation.value">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Mettre à jour</button>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
