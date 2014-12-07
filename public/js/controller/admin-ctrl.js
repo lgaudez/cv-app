@@ -4,7 +4,7 @@ angular.module('cvApp').controller('AdminCtrl',
         function i18nHasTranslationFor(i18n, locale){
 //            console.log(i18n)
             for(var i = 0; i < i18n.translations.length; i++){
-                console.log(i, i18n.translations[i].locale);
+//                console.log(i, i18n.translations[i].locale);
 //                console.log("i8n.translations[i]", i18n, i18n.translations[i]);
 //                console.log("test", i18n.translations[i].locale == locale, "i18n.translations[i].locale", i18n.translations[i].locale , "locale", locale)
 //                console.log("test", i18n.translations[i].key ,i18n.key, i18n.translations[i].key == i18n.key )
@@ -17,18 +17,8 @@ angular.module('cvApp').controller('AdminCtrl',
             return false;
         }
 
-//        $scope.noTranslationFor = function(i18n, locale){
-//            console.log("notTranslationFor", i18n, locale);
-//            for(var i = 0; i< i18n.translations.length; i++){
-////                console.log("test", i18n.translations[i].locale , locale, i18n.translations[i].locale == locale)
-//                console.log("test", i18n.translations[i].key ,i18n.key, i18n.translations[i].key == i18n.key )
-//                if(i18n.translations[i].locale == locale) return true;
-//            }
-//            return false;
-//        };
-
         $scope.authMe = function(){
-            console.log($scope.credential)
+//            console.log($scope.credential)
             AuthService.login($scope.credential);
         };
 
@@ -89,8 +79,15 @@ angular.module('cvApp').controller('AdminCtrl',
             });
         });
 
-        $scope.updateTranslation = function(translation){
-            $http.post("http://localhost:3000/translations",translation);
+        $scope.updateTranslation = function(i18n){
+            // iterate over i18n.translations, and post key, value, locale
+            for(var i = 0; i< i18n.translations.length; i++){
+                var translation = i18n.translations[i];
+//                console.log(translation);
+                $http.post("http://localhost:3000/rest/translations/" + i18n.key, translation);
+            }
+
+
         };
 
 //        $scope.addTranslation = function(){

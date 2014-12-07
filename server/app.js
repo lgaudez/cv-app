@@ -53,16 +53,18 @@ function readI18nFile(path, locale){
         var object = JSON.parse(data);
 //        console.log(object)
         for (var key in object) {
+
             if (object.hasOwnProperty(key)) {
-//                console.log(object[key]);
-                var objectTransformed = {locale : locale, key: key, value: object[key]};
-                //insert in database
-
-                _translationRepo.update({key : key, locale: locale}, objectTransformed, {upsert : true}, function(err, result) {
-
-//                    console.log("callback update locale *//");
-                });
-
+                (function(){
+                    const tmpKey = key;
+                    //insert in database only if not exist
+                    _translationRepo.count({key : key, locale: locale}, function(err, count){
+                        if(count == 0){
+                            var objectTransformed = {locale : locale, key: tmpKey, value: object[tmpKey]};
+                            _translationRepo.insert(objectTransformed, function(){});
+                        }
+                    });
+                })();
             }
         }
     });
@@ -116,33 +118,34 @@ router.use(function(err, req, res, next){
 
 // Translations
 
-router.route('/rest/translations').get(function(req, response){
-    var localeAsked = req.param("lang");
-    var i18nResponse = {};
+router.route('/rest/translations')
+    .get(function(req, response){
+        var localeAsked = req.param("lang");
+        var i18nResponse = {};
 
-    _translationRepo.find({locale: localeAsked}).toArray(function(err, result) {
+        _translationRepo.find({locale: localeAsked}).toArray(function(err, result) {
 
-        if(result!= null && result.length > 0){
-            for(var i = 0; i< result.length; i++){
-                var translation = result[i];
-                var objectName = translation.key;
-                i18nResponse[objectName] = translation.value;
+            if(result!= null && result.length > 0){
+                for(var i = 0; i< result.length; i++){
+                    var translation = result[i];
+                    var objectName = translation.key;
+                    i18nResponse[objectName] = translation.value;
+                }
             }
-        }
-        else{
-            response.status(400);
-        }
+            else{
+                response.status(400);
+            }
 
-        response.json(i18nResponse);
-    });
+            response.json(i18nResponse);
+        });
 
-}).post(function(req, response){
-    var translation = req.body;
-    _translationRepo.update({key : translation.key, locale: translation.locale}, translation, {upsert : true}, function(err, result) {
-        //TODO update in file ou regenérer le fichier à partir de la db
-        response.json();
+    })
+    .post(function(req, response){
+        var translation = req.body;
+        _translationRepo.update({key : translation.key, locale: translation.locale}, translation, {upsert : true}, function(err, result) {
+            response.json();
+        });
     });
-});
 
 router.route('/rest/auth').post(function(req, response) {
     console.log('/rest/auth', req.body);
